@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'students',  # Students앱 등록
+    'students',  # Students 앱 등록
+    'home',     # homem 앱 등록
 ]
 
 

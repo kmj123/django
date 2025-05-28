@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>정보 수정하기</title>
+
+</head>
+<body>
+    <h2> 학생정보 수정 페이지 </h2>
+    <form action='/students/update/' method='post' name='frm'>
+        {% csrf_token %}
+        <label>학번</label>
+        <input type=text name='no' value={{stu.no}}><br>
+        <label>이름</label>
+        <input type=text name='name' value={{stu.name}}><br>
+        <label>전공</label>
+        <input type=text name='major' value={{stu.major}}><br>
+        <label>학년</label>
+        <input type=text name='grade' value={{stu.grade}}><br>
+        <label>나이</label>
+        <input type=text name='age' value={{stu.age}}><br>
+        <label>성별</label>
+        <input type='radio' name='gender' value='남성' id='man' {%if stu.gender == '남성'%}checked{% endif %}>
+        <label for='man'>남성</label>
+        <input type='radio' name='gender' value='여성' id='woman' {%if stu.gender == '여성' %}checked{% endif %}>
+        <label for='woman'>여성</label>
+        <br>
+       <input type='submit' value='저장'>
+       <a href='/'><button>홈으로</button></a>
+    </form>
+</body>
+</html>
