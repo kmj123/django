@@ -1,30 +1,16 @@
+
+{% load static %}
 <!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>게시글 수정</title>
-  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <title>Document</title>
   <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,500,700,900&display=swap&subset=korean" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
   <link rel="stylesheet" href="/static/css/style.css">
-  <link rel="stylesheet" href="/static/css/write.css">
-  <script>
-    if ('{{msg}}' == '1'){
-      alert("게시글이 수정되었습니다.");
-      location.href='/board/list/';
-    }
-    // 답글완료 버튼 클릭시
-    function replyBtn(){
-      if($("#btitle").val().length<2){
-        alert('게시글 제목은 1자리 이상 입력하셔야 합니다.');
-        $("#btitle").focus();
-        return;
-      }
-      replyFrm.submit();
-    }
-  </script>
+  <link rel="stylesheet" href="/static/css/notice_list.css">
 </head>
-
 <body>
   <header>
     <ul>
@@ -37,7 +23,7 @@
   </header>
 
   <nav>
-    <a href="/"><div class="logo"></div></a>
+    <a href='/'><div class="logo"></div></a>
 
     <div id="search">
       <div class="search"></div><br>
@@ -61,60 +47,68 @@
   </nav>
 
   <section>
-    <h1>글 수정 페이지</h1>
-    <hr>
+    <h1>NOTICE</h1>
+    <div class="wrapper">
+      <form action="/search" name="search" method="post">
+        {% csrf_token %}
+        <select name="category" id="category">
+          <option value="0">전체</option>
+          <option value="title">제목</option>
+          <option value="content">내용</option>
+        </select>
 
-    <form action="{% url 'board:reply' board.bno %}" name="replyFrm" method="post">
-      {% csrf_token %}
-      <table>
-        <colgroup>
-          <col width="15%">
-          <col width="85%">
-        </colgroup>
-        <tr>
-          <th>분류</th>
-          <td>
-            <div class="category-wrapper">
-              <select name="category" id="category">
-                <option value="notice">공지</option>
-                <option value="event">이벤트</option>
-              </select>  
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <th>제목</th>
-          <td>
-            <input type="text" name="id" id='id' value='{{board.id}}'>
-          </td>
-        </tr>
-        <tr>
-        <tr>
-          <th>제목</th>
-          <td>
-            <input type="text" name="btitle" id='btitle' value='{{board.btitle}}'>
-          </td>
-        </tr>
-        <tr>
-          <th>내용</th>
-          <td>
-            <textarea name="bcontent" cols="50" rows="10">{{board.bcontent}}</textarea>
-          </td>
-        </tr>
-        <tr>
-          <th>이미지 표시</th>
-          <td>
-            {{board.bfile}}
-          </td>
-        </tr>
-      </table>
-      <hr>
-      <div class="button-wrapper">
-        <button type="button" onclick='boardBtn()' class="write">수정완료</button>
-        <button type="button" class="cancel">취소</button>
-      </div>
-    </form>
+        <div class="title">
+          <input type="text" size="16">
+        </div>
+  
+        <button type="submit"><i class="fas fa-search"></i></button>
+      </form>
+    </div>
 
+    <table>
+      <colgroup>
+        <col width="13%">
+        <col width="*">
+        <col width="13%">
+        <col width="12%">
+        <col width="13%">
+      </colgroup>
+      <tr>
+        <th>No.</th>
+        <th>제목</th>
+        <th>작성자</th>
+        <th>조회수</th>
+        <th>작성일</th>
+      </tr>
+      {% for board in list %}
+      <tr>
+        <td>{{board.bno}}</td>
+        <td class="table-title">
+          <a href='{% url "board:view" board.bno %}'>
+            <!-- board.bindent 숫자개념으로 변경 -->
+            {% for i in "" rjust: board.bindent %}▶{% endfor %}
+            {{board.btitle}}
+          </a>
+          </td>
+        <td>{{board.id}}</td>
+        <td>{{board.bhit}}</td>
+        <td>{{board.bdate|date:'Y-m-d'}}</td>
+      </tr>
+      {% endfor %}
+
+    </table>
+
+    <ul class="page-num">
+      <li class="first"></li>
+      <li class="prev"></li>
+      <li class="num">
+        <div>1</div>
+      </li>
+      <li class="next"></li>
+      <li class="last"></li>
+    </ul>
+
+    <a href='{% url "board:write" %}'><div class="write">쓰기</div></a>
   </section>
 
   <footer>
