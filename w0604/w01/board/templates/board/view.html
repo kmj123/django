@@ -74,19 +74,28 @@
         </td>
       </tr>
       <tr>
-        <td colspan='2' class="article">
-        {{board.bcontent}}
-        </td>
-      </tr>
-      <tr>
-        <td colspan='2'><strong>다음글</strong> <span class="separator">|</span> [키즈잼] 2월 프로그램 안내</td>
-      </tr>
-      <tr>
+        <tr>
+          <td colspan='2' class="article">
+          {{board.bcontent}}
+          </td>
+        </tr>
+        <tr>
+          <td colspan='2'><strong>이미지 첨부</strong> <span class="separator">|</span> 
+            {% if board.bfile %}
+            <img src='/media/{{board.bfile}}' width='400px'>
+            {% else %}
+              파일없음
+            {% endif %}
+          </td>
+        </tr>
+        <tr>
+          <td colspan='2'><strong>다음글</strong> <span class="separator">|</span>[키즈잼] 2월 프로그램 안내</td>
+        </tr>
         <td colspan='2'><strong>이전글</strong> <span class="separator">|</span> [키즈잼] 2020년 1분기 정기 휴관일 안내</td>
       </tr>
     </table>
 
-    <a href='{% url "board:list" %}'><div class="list">목록</div></a>
+    <a href='{% url "board:list" %}?category={{category}}&search={{search}}'><div class="list">목록</div></a>
     <div class="list" onclick='deleteBtn()'>삭제</div>
     <a href='{% url "board:update" board.bno %}'><div class="list">수정</div></a>
     <a href='{% url "board:reply" board.bno %}'><div class="list">답글달기</div></a>

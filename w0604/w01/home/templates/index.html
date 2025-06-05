@@ -1,4 +1,4 @@
-{%load static%}
+{% load static %}
 <!DOCTYPE html>
 <html>
 	<head>
@@ -12,8 +12,8 @@
 	 		<div id="nav_up">
 	 			<ul>
 	 				<li>회원가입</li>
-	 				<li><a href='/'>로그인</a></li>
-					<!-- url board:app_name, list:url name -->
+	 				<li>로그인</li>
+					<!-- board:app_name, list : url name -->
 	 				<li><a href='{% url "board:list" %}'>고객행복센터</a></li>
 	 				<li>배송정보검색</li>
 	 				<li><a href='/admin/'>관리자페이지</a></li>

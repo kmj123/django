@@ -5,7 +5,7 @@ from board.models import Board
 def write(request):
     if request.method =="GET":
         return render(request,'board/write.html')
-    elif request.mehtod == "POST":
+    elif request.method == "POST":
         # request로 데이터 가져오기
         id = request.POST.get('id')
         btitle = request.POST.get('btitle')
@@ -21,12 +21,12 @@ def write(request):
 
 # 게시글 상세보기
 def view(request,bno):
-    qs = Board.objects.get(bno=bno)
-    context = {'board':qs}
+    qs = Board.objects.filter(bno=bno)
+    context = {'board':qs[0]}
     return render(request,'board/view.html',context)
 
 # 게시글 목록
 def list(request):
-    qs = Board.objects.all()
+    qs = Board.objects.all().order_by('-bno')
     context = {'list':qs}
     return render(request,'board/list.html',context)
