@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from member.models import Member
+
 
 # id 중복확인
 def idchk(request):

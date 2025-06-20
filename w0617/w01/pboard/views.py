@@ -2,20 +2,18 @@ from django.shortcuts import render
 import requests
 import json
 
-# 전역변수 선언
-global list
+### 전역변수
+dlist = []
 
-# 공공데이터 상세보기
+# 공공데이터 상세보기 - 공공데이터 다시 호출
 def view(request,galContentId):
-    print("넘어온 galContentId: ", galContentId)
-    ## 공공데이터 호출
-    dlist = publicData()
-
+    global dlist
+    print('넘어온 galContentId : ',galContentId)
+    print('넘어온 dlist : ',dlist)
+    # 공공데이터 호출
+    # dlist = publicData()
     for d in dlist:
-        print("데이터1 : ",d['galContentId'])
-        # AttributeError: 'dict' object has no attribute 'galContentId'
-        if d['galContentId'] == str(galContentId):  ## 타입확인해서 타입변환
-            print('검색된 데이터: ',d)
+        if d['galContentId'] == str(galContentId): # 타입확인
             dData = d
             break
         

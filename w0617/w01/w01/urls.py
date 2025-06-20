@@ -9,6 +9,7 @@ urlpatterns = [
     path('member/', include('member.urls')),
     path('chart/', include('chart.urls')),
     path('pboard/', include('pboard.urls')),
+    path('kakao/', include('kakao.urls')),
 ]
 
 # 파일업로드 url 구성을 urlpatterns에 추가로 설정이 들어감
