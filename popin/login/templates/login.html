@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="popin_logo.png" type="image/png">
-    <title>로그인1</title>
+    <link rel="icon" href="/static/images/login/popin_logo.png" type="image/png">
+    <title>로그인</title>
     <style>
         *{margin : 0; padding : 0; box-sizing: border-box;}
         body {
@@ -46,8 +46,8 @@
         .login-form h3{text-align : center; color: #7E6EB0;}
         .login-form .or{color : #9b9595; font-size: 10px;}
         .login-form label{line-height: 2; font-size: 13px; font-weight: 500;}
-        .login-form input{display: block;       /* 인풋이 한 줄씩 내려오게 */
-            margin-bottom: 5px;  /* 아래쪽 간격 */
+        .login-form input{display: block;  
+            margin-bottom: 5px; 
             padding: 12px;
             width: 100%;
             border-radius: 6px;
@@ -91,7 +91,7 @@
         .login-form .signup{font-size : 12px; display : flex;}
         .join{color : #760fd6ef;}
         .login-form .kakao{ margin-top: 10px;}
-
+        .login-form .loginOG{border : none; background : #8A79AF; color : #fffdfd;}
             
     </style>
 </head>
@@ -100,7 +100,6 @@
         <!-- 로고 -->
         <div class = "login-form">
             <div class = "top">
-                <img src = "popin_logo.png" alt = "로고 이미지">
                 <h2>PO-PIN</h2>
             </div>
             <div class = "subtitle">찍는곳이 성지, 포핀에서 덕심 폭발</div>
@@ -124,7 +123,7 @@
             </div>
             <input class = "loginOG" type = "button" value = "로그인">
             <p class = "or">__________________________________또는__________________________________</p>
-            <img class = "kakao" src = "kakaologin.png" alt = "카카오톡 로그인">
+            <img class = "kakao" src = "/static/images/login/kakaologin.png" alt = "카카오톡 로그인">
             <div class = "signup">
                 <p>아직 계정이 없으신가요?</p>
                 <a>  </a>
