@@ -831,10 +831,10 @@ textarea {
                 <div class="form-content">
                     <label>위치 선택 방법</label>
                     <div class="location-toggle">
-                        <button type="button" class="location-btn active" data-location="db">DB 장소</button>
+                        <button type="button" class="location-btn active" data-location="db">오프라인 장소</button>
                         <!--DB 장소-->
-                        <div id="dbLocationContainer">
-                            <select name="db_location" id="dbLocation">
+                        <div id="dbLocationContainer" style="display:block;">
+                            <select name="db_location" id="dbLocation" required>
                                 <option value="">장소를 선택해주세요</option>
                                 {% for key, label in place_choices %}
                                 <option value="{{ key }}">{{ label }}</option>
@@ -934,7 +934,6 @@ textarea {
                 </button>
             </div>
         </form>
-    </div>
     </div>
     <!--//Upload-Form-->
 </div>  
@@ -1076,6 +1075,7 @@ textarea {
             return false;
         }
     });
+    
     // 아티스트 검색 모달창 오픈
     document.addEventListener('DOMContentLoaded',() => {
         const modal = document.getElementById('searchModal')
@@ -1152,15 +1152,7 @@ textarea {
         });
 
         // 검색기능
-        searchInput.addEventListener('click',()=>{
-            const keyword = searchInput.value.toLowerCase();
-            const filtered = posts.filter(p => p.title.toLoserCase().includes(keyword));
 
-            // 결과 렌더링
-            searchInput.innerHtml = filtered.length
-            ? filtered.map(p => `<div><a href="/posts/${p.id}">${p.title}</a></div>`).join('')
-                : '<p>검색 결과가 없습니다.</p>';
-        });
     });
 
 </script>
