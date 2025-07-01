@@ -308,15 +308,15 @@
                 <div class="section-content">
                     <div id="received-reviews" class="review-content">
                         <div class="item review-item">
-                            <h3><span class="rating">⭐⭐⭐⭐⭐</span>친절하고 빠른 거래</h3>
+                            <h3>친절하고 빠른 거래<span class="rating">⭐⭐⭐⭐⭐</span></h3>
                             <p>포카 상태도 좋고 포장도 꼼꼼히 해주셔서 감사했습니다! - 포카매니아님</p>
                         </div>
                         <div class="item review-item">
-                            <h3><span class="rating">⭐⭐⭐⭐⭐</span>신뢰할 수 있는 거래</h3>
+                            <h3>신뢰할 수 있는 거래<span class="rating">⭐⭐⭐⭐⭐</span></h3>
                             <p>설명과 동일한 상태의 포카를 받았어요. 추천합니다! - 카드수집러님</p>
                         </div>
                         <div class="item review-item">
-                            <h3><span class="rating">⭐⭐⭐⭐</span>좋은 거래였습니다</h3>
+                            <h3>좋은 거래였습니다<span class="rating">⭐⭐⭐⭐</span></h3>
                             <p>소통이 원활하고 약속 시간도 잘 지켜주셨어요. - 포카러님</p>
                         </div>
                         <div class="view-all-container">
@@ -415,24 +415,41 @@
 
             <div id="blocked" class="tab-content">
                 <div class="section-header">
-                    <h2>내가 차단한 사용자</h2>
+                    <h2>블락</h2>
+                    <div class="blocked-tabs">
+                        <button class="blocked-tab active" onclick="showBlockedTab('blocked-user')">내가 차단한 사용자</button>
+                        <button class="blocked-tab" onclick="showBlockedTab('blocked-post')">내가 신고한 글</button>
+                    </div>
                 </div>
+
                 <div class="section-content">
-                    <div class="item blocked-user">
+                    <div id="blocked-user" class="blocked-content">
                         <h3>스팸유저123</h3>
                         <button class="unblock-btn">차단해제</button>
                         <p>차단 사유: 스팸 메시지 반복 발송</p>
                     </div>
-                    <div class="item blocked-user">
+                    <div id="blocked-user" class="blocked-content">
                         <h3>사기꾼456</h3>
                         <button class="unblock-btn">차단해제</button>
                         <p>차단 사유: 거래 약속 불이행</p>
                     </div>
                 </div>
+
+                <div class="section-content">
+                    <div id="blocked-post" class="item blocked-post">
+                        <h3>매우매우 안좋은 글</h3>
+                        <button class="unblock-btn">차단해제</button>
+                        <p>차단 사유: 매우매우 안좋은 글</p>
+                    </div>
+                    <div id="blocked-post" class="item blocked-post">
+                        <h3>사기꾼의 글</h3>
+                        <button class="unblock-btn">차단해제</button>
+                        <p>차단 사유: 사기꾼의 글</p>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
-
     
         <!--프로필 수정 모달창 구현-->
         <form action="/mypage/profileupdate/" method="post" name="profileFrm" enctype="multipart/form-data">
@@ -597,7 +614,26 @@
         }
         Sharing.style.display='none';
         Insteadbuy.style.display='none';
-        
+
+        // 블락 리스트
+        function showBlockedTab(type){
+            const blockedTab = document.querySelectorAll('.blocked-tab');
+            const blockeduser = document.getElementById('blocked-user');
+            const blockedpost = document.getElementById('blocked-post');
+
+            blockedTab.forEach(tab => {
+                tab.calssList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            if(type === 'blocked-user'){
+                blockedpost.style.display = "none";
+            }
+            else if(type === 'blocked-post'){
+                blockeduser.style.display="none";
+            }
+            
+        }
 
         // 포토카드 데이터 (실제로는 서버에서 가져올 데이터)
         const photocardData = {
