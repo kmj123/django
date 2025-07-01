@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/static/images/login/popin_logo.png" type="image/png">
+  {% comment %} <link rel="stylesheet" type="text/css" href="/static/css/login/login.css"> {% endcomment %}
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <title>대리구매</title>
   <style>
@@ -145,17 +147,6 @@
       margin: 0;
       grid-column: 2;
       justify-self: center;
-    }
-
-    .top input {
-      border: none;
-      width: 130px;
-      height: 40px;
-      border-radius: 15px;
-      background: linear-gradient(45deg, #667eea, #764ba2);
-      color: white;
-      grid-column: 3;
-      justify-self: end;
     }
 
     .list {
@@ -398,7 +389,7 @@
       color: white;
     }
 
-    .status-full {
+    .status-urgent {
       background: #ff9800;
       color: white;
     }
@@ -471,7 +462,7 @@
       border-top: 2px solid #f0f0f0;
     }
 
-    .post-author {
+    .post-wrtier_id {
       display: flex;
       align-items: center;
       gap: 8px;
@@ -534,7 +525,46 @@
             backdrop-filter: blur(5px);
             z-index: 1000;
         }
+        #imageModal {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0,0,0,0.8);
+          display: none;
+          justify-content: center;
+          align-items: center;
+          z-index: 2000;
+        }
 
+        #imageModal img {
+          max-width: 80%;
+          max-height: 80%;
+          border-radius: 10px;
+          box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        #prevBtn, #nextBtn {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          font-size: 3rem;
+          color: white;
+          background: none;
+          border: none;
+          cursor: pointer;
+          z-index: 2001;
+          padding: 0 20px;
+          user-select: none;
+        }
+
+        #prevBtn:hover, #nextBtn:hover {
+          color: #667eea;
+        }
+
+        #prevBtn { left: 30px; }
+        #nextBtn { right: 30px; }
         .modal-content {
             position: absolute;
             top: 50%;
@@ -556,6 +586,20 @@
             color: #333;
         }
 
+        /* 이미지 확대 모달는 투명 배경에 이미지만 크게 보이도록 */
+        #imageModal {
+          display: none;
+          position: fixed;
+          top: 0; left: 0;
+          width: 100%; height: 100%;
+          background: rgba(0,0,0,0.8);
+          backdrop-filter: none;
+          z-index: 1100; /* 기존 모달보다 위에 위치 */
+        }
+
+        #postModal button{ margin-top : 20px; border-radius : 10px; width: 40px; height : 25px;
+                border : 0.5px solid #333333; align-items : right ; background :rgba(34, 34, 34, 0);
+        }
         .form-group {
             margin-bottom: 20px;
         }
@@ -860,7 +904,6 @@
     <div class="dashboard">
       <div class="top">
         <h3>대리구매</h3>
-        <input type="button" value="대리구매글 등록">
       </div>
       <div class="line"></div>
       <div class = "comment">
@@ -887,7 +930,9 @@
         </div>
         <div class="postlist">
                     <!-- 동행 카드들 -->
-                    <div class="post-card" data-category="goods">
+                    <div class="post-card" 
+                    data-category="goods" 
+                    data-imgs="/static/images/test/proxy1.png,/static/images/test/proxy2.png,/static/images/test/proxy3.png">
                         <div class="post-header">
                             <div>
                                 <h3 class="post-title">에스파 dirty work 팝업 대리구매</h3>
@@ -897,24 +942,24 @@
                                     <span class="post-tag">aespa</span>
                                 </div>
                             </div>
-                            <span class="post-status status-full">긴급모집</span>
+                            <span class="post-status status-urgent">긴급모집</span>
                         </div>
                         
                         <div class="post-info">
-                            <div class="info-item">
-                                <span class="info-date">📅</span>
+                            <div class="info-date">
+                                <span class="info-icon">📅</span>
                                 <span>2024년 7월 25일 (목) 18:00</span>
                             </div>
-                            <div class="info-item">
-                                <span class="info-place">📍</span>
+                            <div class="info-place">
+                                <span class="info-icon">📍</span>
                                 <span>성수 언더스탠드에비뉴</span>
                             </div>
-                            <div class="info-item">
-                                <span class="info-people">👥</span>
+                            <div class="info-people">
+                                <span class="info-icon">👥</span>
                                 <span>3/5명 (모집중)</span>
                             </div>
-                            <div class="info-item">
-                                <span class="info-mon">💰</span>
+                            <div class="info-mon">
+                                <span class="info-icon">💰</span>
                                 <span>개당 수고비 0.1</span>
                             </div>
                         </div>
@@ -924,7 +969,7 @@
                         </div>
                         
                         <div class="post-footer">
-                            <div class="post-author">
+                            <div class="post-wrtier_id">
                                 <span>👤 wintercute</span>
                                 <span class="post-meta">1일 전</span>
                             </div>
@@ -975,7 +1020,7 @@
                         </div>
                         
                         <div class="post-footer">
-                            <div class="post-author">
+                            <div class="post-wrtier_id">
                                 <span>👤 쩗쭓짧</span>
                                 <span class="post-meta">5시간 전</span>
                             </div>
@@ -988,20 +1033,7 @@
                           <button class="join-btn active">채팅하기</button>
                         </div>
                       </div>
-                <div id="postModal" class="modal">
-                    <div class="modal-content">
-                        <button class="close-btn" onclick="closePostModal()">&times;</button>
-                        <h2 id="modalPostTitle">제목</h2>
-                        <p id="modalPostDate">📅 날짜</p>
-                        <p id="modalPostPlace">📍 장소</p>
-                        <p id="modalPostPeople">👥 인원</p>
-                        <p id="modalPostMoney">💰 비용</p>
-                        <div id="modalPostDescription" style="margin-top: 20px; color: #444; line-height: 1.6;">
-                        설명 내용
-                        </div>
-                    </div>
-                    </div>
-                    <div class="pagination">
+                      <div class="pagination">
                       <a href="#" title="첫 페이지">«</a>
                       <a href="#" title="이전 페이지">‹</a>
                       <strong>1</strong>
@@ -1012,23 +1044,119 @@
                       <a href="#" title="다음 페이지">›</a>
                       <a href="#" title="마지막 페이지">»</a>
                     </div>
+                      <!-- 게시글 상세 모달 -->
+                      <div id="postModal" class="modal">
+                        <div class="modal-content">
+                          <button class="close-btn" onclick="closePostModal()" style="position:absolute; top:15px; right:20px; background:none; border:none; font-size:24px; cursor:pointer;">&times;</button>
+                          <h2 id="modalPostTitle"></h2>
+                          <p id="modalPostDate"></p>
+                          <p id="modalPostPlace"></p>
+                          <p id="modalPostPeople"></p>
+                          <p id="modalPostMoney"></p>
+                          <p id="modalPostDescription"></p>
+                          <div id="modalPostImages" style="display:flex; gap:10px;"></div>
+                        </div>
+                      </div>
+
+                      <!-- 이미지 확대 모달 -->
+                      <div id="imageModal" class="modal" style="display:none; justify-content:center; align-items:center;">
+                        <button id="prevBtn">‹</button>
+                        <img id="modalImage" style="max-width:80%; max-height:80%;" />
+                        <button id="nextBtn">›</button>
+                      </div>
+                      </div>
+                    </div>
+                    </div>
                 </div>
               </div>
               <button type="button" class ="topBtn" id="topBtn"><img src="/static/images/login/topBtn.svg" alt="TOP" width="24" height="24"></button>
-            </body>
+
 <script>
+  const modalImage = document.getElementById('modalImage');
+  let currentImageIndex = 0;
+  let imageList = [];
+
+  const imageModal = document.getElementById('imageModal');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+
+
   const postModal = document.getElementById("postModal");
 
+
+  // 이미지 썸네일 클릭 시 모달 띄우기
+    document.getElementById('modalPostImages').addEventListener('click', (e) => {
+      if (e.target.tagName === 'IMG') {
+        const clickedSrc = e.target.src;
+        const images = Array.from(document.querySelectorAll('#modalPostImages img'));
+        imageList = images.map(img => img.src);
+        currentImageIndex = imageList.indexOf(clickedSrc);
+        modalImage.src = clickedSrc;
+        imageModal.style.display = 'flex';
+      }
+    });
+
+    // 이미지 모달 닫기
+    imageModal.addEventListener('click', (e) => {
+      if (e.target === modalImage) return; // 이미지를 클릭해도 닫히지 않도록
+      imageModal.style.display = 'none';
+    });
+
+    // 이전 이미지 보기
+    prevBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      currentImageIndex = (currentImageIndex - 1 + imageList.length) % imageList.length;
+      modalImage.src = imageList[currentImageIndex];
+    });
+
+    // 다음 이미지 보기
+    nextBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      currentImageIndex = (currentImageIndex + 1) % imageList.length;
+      modalImage.src = imageList[currentImageIndex];
+    });
+
   // 모달 열기
-  function openPostModal(title, date, place, people, money, desc) {
+  function openPostModal(title, date, place, people, money, desc, imgListStr = "") {
     document.getElementById("modalPostTitle").textContent = title;
     document.getElementById("modalPostDate").textContent = `📅 ${date}`;
     document.getElementById("modalPostPlace").textContent = `📍 ${place}`;
     document.getElementById("modalPostPeople").textContent = `👥 ${people}`;
     document.getElementById("modalPostMoney").textContent = `💰 ${money}`;
     document.getElementById("modalPostDescription").textContent = desc;
+
+    const imageContainer = document.getElementById("modalPostImages");
+    imageContainer.innerHTML = ""; // 기존 이미지 초기화
+
+    if (imgListStr) {
+      const imgUrls = imgListStr.split(",").map(url => url.trim());
+
+      imgUrls.forEach(url => {
+        const img = document.createElement("img");
+        img.src = url;
+        img.alt = "첨부 이미지";
+        img.style.width = "100px";
+        img.style.borderRadius = "10px";
+        img.style.boxShadow = "0 2px 8px rgba(0,0,0,0.15)";
+        imageContainer.appendChild(img);
+      });
+
+      
+      if (imgUrls.length > 1) {
+          prevBtn.style.display = 'block';
+          nextBtn.style.display = 'block';
+        } else {
+          prevBtn.style.display = 'none';
+          nextBtn.style.display = 'none';
+        }
+
+      imageContainer.style.display = 'flex';
+    } else {
+      imageContainer.style.display = 'none';
+    }
+
     postModal.style.display = "block";
-  }
+}
 
   // 모달 닫기
   function closePostModal() {
@@ -1059,9 +1187,9 @@
         const people = card.querySelector(".info-people span:nth-child(2)")?.textContent.trim();
         const money = card.querySelector(".info-mon span:nth-child(2)")?.textContent.trim();
         const desc = card.querySelector(".post-description")?.textContent.trim();
+        const imageList = card.getAttribute("data-imgs") || "";
 
-        // 모달 열기 함수 호출
-        openPostModal(title, date, place, people, money, desc);
+        openPostModal(title, date, place, people, money, desc, imageList);
       });
     });
 
@@ -1084,6 +1212,7 @@
         behavior: 'smooth'
       });
     });
+
 </script>
 </body>
 </html>

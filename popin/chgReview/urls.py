@@ -4,4 +4,5 @@ from.import views
 app_name = 'chgReview'
 urlpatterns = [
     path('',views.main,name='main'),
+    path('view/',views.view,name='view'),
 ]
