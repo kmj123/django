@@ -40,6 +40,20 @@ def list(request):
 
 # 선택 포토카드 거래글 상세정보
 def view(request, pno):
+    user_id = request.session.get('user_id')
+    
+    if user_id: # 유저 정보가 있는 경우
+        latest_list = request.session.get('latest_poca', []) # 세선 안에 latest_poca 있으면 리스트 불러오기 or []
+        
+        if pno in latest_list: # 리스트 안에 해당 게시글 pno가 있을 때
+            if latest_list[0] != pno: # pno가 리스트 안에 존재하지만 가장 최근이 아닐 때
+                latest_list.remove(pno) # 리스트 내 pno 제거
+                latest_list.insert(0,pno) # 가장 최근으로 insert
+        else:
+            latest_list.insert(0,pno) # 가장 최근으로 insert
+            
+        request.session['latest_poca'] = latest_list
+            
     # pno 포토카드 불러오기
     qs = Photocard.objects.get(pno=pno)
     
@@ -90,11 +104,12 @@ def write(request):
             album=request.POST.get('album')
             
             member=request.POST.get('member')
-            group_name, member_name = member.split(' - ')
-            member_obj = Member.objects.get(name=member_name, group__name=group_name)
+            # group_name, member_name = member.split(' - ')
+            # member_obj = Member.objects.get(name=member_name, group__name=group_name)
             
             poca_state=request.POST.get('poca_state')
-            tag=request.POST.get('tag', None)
+            # 태그 문자리스트로 get
+            tag=request.POST.getlist('tag', None)
             
             trade_type=request.POST.get('trade_type')
             place=request.POST.get('place')
@@ -106,14 +121,18 @@ def write(request):
             else:
                 available_at = request.POST.get('available_at')
             
-            latitude=request.POST.get('latitude')
-            longitude=request.POST.get('longitude')
+            # 위치 문자열 -> 숫자열로 전환
+            lat = request.POST.get('latitude')
+            lng = request.POST.get('longitude')
+
+            latitude = float(lat) if lat else None
+            longitude = float(lng) if lng else None
             
             # Photocard 객체 생성
             Photocard.objects.create(
-                title=title, image=image, seller=seller, category=category, album=album, member=member_obj, poca_state=poca_state, tag=tag, trade_type=trade_type, place=place, sell_state=sell_state, available_at=available_at, latitude=latitude, longitude=longitude
+                title=title, image=image, seller=seller, category=category, album=album, member=member, poca_state=poca_state, tag=tag, trade_type=trade_type, place=place, sell_state=sell_state, available_at=available_at, latitude=latitude, longitude=longitude
             )
-            
+            print(title, image,seller,category, album, member, poca_state,tag,trade_type,place,sell_state,available_at)
             # redirect로 이동
             return redirect('/photocard/list')
             
