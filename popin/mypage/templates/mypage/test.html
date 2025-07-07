@@ -13,8 +13,10 @@
   <button id="latest">최근본글</button>
   <button id="mypoca">마이포카</button>
   <button id="wishlist">위시리스트</button>
-  <button id="trade">교환내역</button>
-  <button id="blocklist">차단유저리스트</button>
+  <button id="transactions">포토카드</button>
+  <button id="trading">후기글</button>
+  <button id="community">커뮤니티 작성글</button>
+  <button id="blocked">차단유저리스트</button>
   <div id="div_box"></div>
 
   <script>
@@ -153,7 +155,7 @@
         });
       });
 
-      $("#trade").click(function () {
+      $("#transactions").click(function () {
         $.ajax({
           url: "/mypage/trade/",
           type: "POST",
