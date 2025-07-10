@@ -323,56 +323,83 @@
           <div class="line"></div>
         </div>
       </div>
-
-      <table class="writebox">
-        <tbody>
-          <tr>
-            <th scope="row"><label for="board">공지 유형</label></th>
-            <td>
-              <select class="selectB" id="Sboard">
-                <option value="">선택해주세요.</option>
-                <option value="전체">전체</option>
-                <option value="일반">일반</option>
-                <option value="점검">점검</option>
-                <option value="업데이트">업데이트</option>
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row"><label for="title">제목</label></th>
-            <td><input type="text" class="wlong" id="title"/></td>
-          </tr>
-          <tr>
-            <th scope="row"><label for="fix">상단고정</label></th>
-            <td><input type="checkbox" class="fix" id="fix"/></td>
-          </tr>
-          <tr>
-            <th scope="row"><label for="content">상세 내용</label></th>
-            <td><textarea class="tta" id="content"></textarea></td>
-          </tr>
-          <tr>
-            <th scope="row">사진 첨부</th>
-            <td>
-                <div class="file-upload-area" id="fileUploadArea">
-                <input type="file" id="fileInput" multiple accept="image/*" style="display: none;">
-                <div class="upload-icon">📷</div>
-                <p><strong>클릭하거나 파일을 드래그하여 업로드</strong></p>
-                <p style="font-size: 12px; color: #999; margin-top: 5px;">JPG, PNG, GIF 파일만 업로드 가능 (최대 10MB)</p>
-                </div>
-                <div class="file-list" id="fileList"></div>
-                <div class="file-count" id="fileCount" style="display: none;"></div>
-            </td>
+      <form action="{% url 'adpage:noticeW' %}" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+        <table class="writebox">
+          <tbody>
+            <tr>
+              <th scope="row"><label for="board" >공지 유형</label></th>
+              <td>
+                <select class="selectB" id="Sboard" name="notice_type">
+                  <option value="">선택해주세요.</option>
+                  <option value="전체">전체</option>
+                  <option value="일반">일반</option>
+                  <option value="점검">점검</option>
+                  <option value="업데이트">업데이트</option>
+                </select>
+              </td>
             </tr>
-        </tbody>
-      </table>
-      <div class = "btn">
-          <button type = "button" value = "write">확인</button>
-          <a href = "{% url 'adpage:notice' %}"><button type = "button" value = "cancel">취소</button></a>
+            <tr>
+              <th scope="row"><label for="title">제목</label></th>
+              <td><input type="text" class="wlong" id="title" name="title"/></td>
+            </tr>
+            <tr>
+              <th scope="row"><label for="fix">상단고정</label></th>
+              <td><input type="checkbox" class="fix" id="fix" name="is_pinned"/></td>
+            </tr>
+            <tr>
+              <th scope="row"><label for="content">상세 내용</label></th>
+              <td><textarea class="tta" id="content" name="content"></textarea></td>
+            </tr>
+            <!--파일첨부 form 형태 (임시)-->
+            <tr>
+              <th scope="row">사진 첨부</th>
+              <td>
+                <input type="file" id="fileInput" name="images" multiple accept="image/*" />
+              </td>
+            </tr>
+            <!--파일첨부 form 형태-->
+
+            {% comment %} 
+            기존 파일첨부 코드
+            <tr>
+              <th scope="row">사진 첨부</th>
+              <td>
+                  <div class="file-upload-area" id="fileUploadArea">
+                  <input type="file" id="fileInput" multiple accept="image/*" style="display: none;">
+                  <div class="upload-icon">📷</div>
+                  <p><strong>클릭하거나 파일을 드래그하여 업로드</strong></p>
+                  <p style="font-size: 12px; color: #999; margin-top: 5px;">JPG, PNG, GIF 파일만 업로드 가능 (최대 10MB)</p>
+                  </div>
+                  <div class="file-list" id="fileList"></div>
+                  <div class="file-count" id="fileCount" style="display: none;"></div>
+              </td>
+              </tr> 
+            {% endcomment %}
+          </tbody>
+        </table>
+        
+        <!-- submit 버튼 form 형태 (임시)-->
+        <div class="btn">
+          <button type="submit">작성</button>
+          <a href="{% url 'adpage:notice' %}">
+            <button type="button">취소</button>
+          </a>
         </div>
+        <!-- submit 버튼 form 형태 (임시)-->
+        
+        {% comment %} 
+        기존 btn
+        <div class = "btn">
+          <button type = "button" value = "write" onclick = "writeBtn()">작성</button>
+          <a href = "{% url 'adpage:notice' %}"><button type = "button" value = "cancel">취소</button></a>
+        </div> {% endcomment %}
+        </form>
     </div>
   </div>
 </body>
 <script>
+    /* 첨부파일 */
     let selectedFiles = [];
     document.addEventListener("DOMContentLoaded", function () {
     const fileUploadArea = document.getElementById('fileUploadArea');
@@ -470,5 +497,10 @@
     const i = Math.floor(Math.log(bytes) / Math.log(k));
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
     }
-</script>
+  
+    /* 작성버튼 */
+    function writeBtn(){
+      alert("작성되었습니다.");
+    }
+  </script>
 </html>

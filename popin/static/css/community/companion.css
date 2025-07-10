@@ -58,17 +58,33 @@
     background : white;
 }
 
-.menu li:hover {
-    color: white;
-    background:rgba(153, 172, 241, 0.35);
+
+.menu ul li.active {
+  background-color: #91a3f1;
+  color: white;
+  font-weight: bold;
+  border-radius: 15px;
 }
+
+
+.menu li.active a {
+  color: white;
+}
+
+
+.menu a:hover {
+  font-weight : 500;
+  border-radius: 15px;
+}
+
 
 .dashboard {
     width: 47%;
-    min-height: 550px;
+    min-height: 300px;
     background: rgba(255, 255, 255, 0.95);
     border-radius: 25px;
     margin-left: 20px;
+    margin-bottom  :20px;
 }
 
 .now {
@@ -207,6 +223,17 @@
 
 .artist{
     background: linear-gradient(135deg, #667eea 0%,rgb(148, 89, 207) 100%);
+    color : white;
+    border-radius : 5px;
+    font-weight : 500;
+    padding : 4px;
+    font-size : 12px;
+    text-align : center;
+    display: inline-block;
+}
+
+.ptype{
+    background: linear-gradient(135deg,rgb(78, 218, 223) 0%,rgb(175, 194, 92) 100%);
     color : white;
     border-radius : 5px;
     font-weight : 500;
@@ -620,7 +647,7 @@
 }
 
 .pagination a,
-.pagination strong {
+.pagination .active {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -632,10 +659,17 @@
     transition: all 0.3s ease;
 }
 
-.pagination strong {
+.pagination a.disabled {
+  pointer-events: none;
+  cursor: default;
+}
+
+.pagination .active {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     font-weight: 600;
+    pointer-events: none;
+    cursor: default;
 }
 
 .pagination a:hover {
